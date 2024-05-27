@@ -2,6 +2,7 @@ import express from "express";
 import manipuladorDeErros from "./Middlewares/manipuladorDeErros.js";
 import db from "./config/dbConnect.js";
 import routes from "./routes/index.js";
+import manipulador404 from "./Middlewares/manipulador404.js";
 
 
 db.on("error", console.log.bind(console, "Erro de conexão"));
@@ -12,6 +13,8 @@ db.once("open", () => {
 const app = express();
 app.use(express.json());
 routes(app);
+
+app.use(manipulador404);
 
 app.use(manipuladorDeErros);
 
